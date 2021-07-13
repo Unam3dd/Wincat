@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-uint8_t create_server(unsigned char *address, uint64_t port)
+uint8_t create_server(unsigned char *address, uint16_t port, unsigned char *null_ptr)
 {
     SOCKET fd;
     struct sockaddr_in socks = {0};
@@ -20,7 +20,7 @@ uint8_t create_server(unsigned char *address, uint64_t port)
     if (listen(fd, SOMAXCONN) < 0)
         return (1);
     
-    printf("[+] Listening on port %s:%lld\n", address, port);
+    printf("[+] Listening on port %s:%d\n", address, port);
 
     wait_client(fd);
 
@@ -28,7 +28,7 @@ uint8_t create_server(unsigned char *address, uint64_t port)
 }
 
 
-uint8_t create_server_execute_process(unsigned char *address, uint64_t port, unsigned char *process)
+uint8_t create_server_execute_process(unsigned char *address, uint16_t port, unsigned char *process)
 {
     SOCKET fd;
     struct sockaddr_in socks = {0};
@@ -41,16 +41,16 @@ uint8_t create_server_execute_process(unsigned char *address, uint64_t port, uns
     socks.sin_family = AF_INET;
 
     if (bind(fd, (struct sockaddr *)&socks, sizeof(socks)) < 0) {
-        printf("[-] Error bind address and port : %s:%lld\n", address, port);
+        printf("[-] Error bind address and port : %s:%d\n", address, port);
         return (1);
     }
 
     if (listen(fd, SOMAXCONN) < 0) {
-        printf("[-] Error listen on %s:%lld\n", address, port);
+        printf("[-] Error listen on %s:%d\n", address, port);
         return (1);
     }
 
-    printf("[+] Listening on port %s:%lld\n", address, port);
+    printf("[+] Listening on port %s:%d\n", address, port);
 
     wait_client_process(fd, process);
     

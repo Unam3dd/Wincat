@@ -1,6 +1,6 @@
 #include "wincat.h"
 
-uint8_t client_connect(unsigned char *address, uint64_t port)
+uint8_t client_connect(unsigned char *address, uint16_t port, unsigned char *null_ptr)
 {
     SOCKET fd;
     struct sockaddr_in socks = {0};
@@ -21,7 +21,7 @@ uint8_t client_connect(unsigned char *address, uint64_t port)
     return (0); 
 }
 
-uint8_t client_connect_execute_process(unsigned char *address, uint64_t port, unsigned char *process)
+uint8_t client_connect_execute_process(unsigned char *address, uint16_t port, unsigned char *process)
 {
     SOCKET fd;
     struct sockaddr_in socks = {0};
